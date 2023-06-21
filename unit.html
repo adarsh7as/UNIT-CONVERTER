@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unit Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .converter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 50px;
+    }
+
+    .converter input[type="number"] {
+      width: 150px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .converter select {
+      width: 150px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .converter button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .converter button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="converter">
+    <h1>Unit Converter</h1>
+    <input type="number" id="inputValue">
+    <select id="inputUnit">
+      <option value="m">Meter</option>
+      <option value="cm">Centimeter</option>
+      <option value="km">Kilometer</option>
+      <option value="ft">Feet</option>
+      <option value="in">Inch</option>
+    </select>
+    <select id="outputUnit">
+      <option value="m">Meter</option>
+      <option value="cm">Centimeter</option>
+      <option value="km">Kilometer</option>
+      <option value="ft">Feet</option>
+      <option value="in">Inch</option>
+    </select>
+    <button onclick="convert()">Convert</button>
+    <h3 id="result"></h3>
+  </div>
+
+  <script>
+    function convert() {
+      var inputValue = document.getElementById("inputValue").value;
+      var inputUnit = document.getElementById("inputUnit").value;
+      var outputUnit = document.getElementById("outputUnit").value;
+      var resultElement = document.getElementById("result");
+
+      if (inputUnit === outputUnit) {
+        resultElement.textContent = "Please select different units.";
+        return;
+      }
+
+      var meterValue;
+
+      switch (inputUnit) {
+        case "m":
+          meterValue = inputValue;
+          break;
+        case "cm":
+          meterValue = inputValue / 100;
+          break;
+        case "km":
+          meterValue = inputValue * 1000;
+          break;
+        case "ft":
+          meterValue = inputValue / 3.2808;
+          break;
+        case "in":
+          meterValue = inputValue / 39.370;
+          break;
+        default:
+          resultElement.textContent = "Invalid input unit.";
+          return;
+      }
+
+      var outputValue;
+
+      switch (outputUnit) {
+        case "m":
+          outputValue = meterValue;
+          break;
+        case "cm":
+          outputValue = meterValue * 100;
+          break;
+        case "km":
+          outputValue = meterValue / 1000;
+          break;
+        case "ft":
+          outputValue = meterValue * 3.2808;
+          break;
+        case "in":
+          outputValue = meterValue * 39.370;
+          break;
+        default:
+          resultElement.textContent = "Invalid output unit.";
+          return;
+      }
+
+      resultElement.textContent = inputValue + " " + inputUnit + " = " + outputValue.toFixed(2) + " " + outputUnit;
+    }
+  </script>
+</body>
+</html>
